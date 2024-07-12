@@ -1,3 +1,4 @@
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -16,6 +17,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // Lang.Resources.Culture = new CultureInfo("ru-RU");
         var collection = new ServiceCollection();
         collection.AddApplicationServices();
 

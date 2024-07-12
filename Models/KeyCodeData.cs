@@ -7,7 +7,7 @@ public record KeyCodeData
     public required byte KeyCode { get; init; }
     public required string DisplayName { get; init; }
 
-    public static List<KeyCodeData> PreDefinedKeyCodes =
+    public static readonly List<KeyCodeData> PreDefinedKeyCodes =
     [
         // printable ASCII
         new KeyCodeData() { KeyCode = 0x61, DisplayName = "A" },

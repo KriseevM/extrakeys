@@ -8,4 +8,9 @@ public record BoardData
     public required uint ButtonRows { get; init; }
     public required uint ButtonCols { get; init; }
     public required uint MacroCount { get; init; }
+
+    public override string ToString()
+    {
+        return $"{Port.PortName}: {ButtonCols}x{ButtonRows} ({MacroCount})";
+    }
 }

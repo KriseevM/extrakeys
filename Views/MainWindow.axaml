@@ -3,17 +3,22 @@
         xmlns:vm="using:extrakeys.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lang="clr-namespace:extrakeys.Lang"
         mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="150"
         x:Class="extrakeys.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        Width="350" Height="150" CanResize="False"
         Icon="/Assets/avalonia-logo.ico"
         Title="Keyboard programmer">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-    <ComboBox >
-    </ComboBox>
+    <StackPanel HorizontalAlignment="Center" Margin="0 8">
+        <Label Margin="8" Content="{x:Static lang:Resources.MainWindow_board_selection_label}"></Label>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox Margin="8" PlaceholderText="Select Serial Port" ItemsSource="{Binding BoardNames}"
+                      SelectedIndex="{Binding SelectedComPort}">
+            </ComboBox>
+            <Button Content="{x:Static lang:Resources.MainWindow_board_list_refresh}" Click="RefreshButton_Click"></Button>
+        </StackPanel>
+        <Button Margin="8" Content="{x:Static lang:Resources.MainWindow_start}" Click="StartButton_Click"></Button>
+    </StackPanel>
 </Window>

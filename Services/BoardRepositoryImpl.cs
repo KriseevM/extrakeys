@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.IO.Ports;
+using System.Linq;
+using DynamicData;
+using extrakeys.Lang;
 using extrakeys.Models;
 using extrakeys.Services.Interfaces;
 
@@ -10,36 +12,62 @@ namespace extrakeys.Services;
 
 public class BoardRepositoryImpl : IBoardRepository
 {
-    public List<BoardData> BoardList { get; }
+    public ObservableCollection<BoardData> Boards { get; }
+
+    public void Refresh()
+    {
+        LookupBoards();
+    }
 
     public BoardRepositoryImpl()
     {
-        BoardList = new List<BoardData>();
+        Boards = new ObservableCollection<BoardData>();
+        LookupBoards();
+    }
+
+    private void LookupBoards()
+    {
+        Console.WriteLine(Resources.BoardRepository_begin_lookup);
+        var boardList = new List<BoardData>();
         string[] ports = SerialPort.GetPortNames();
         foreach (var port in ports)
         {
-            SerialPort p = new SerialPort(port, 19200);
-            p.Open();
-            p.Write(new byte[] { 0xAD }, 0, 1);
+            var p = new SerialPort(port, 19200);
             try
             {
+                p.DtrEnable = true;
+                p.RtsEnable = true;
+                p.Open();
+                p.Write(new byte[] { 0xAD }, 0, 1);
                 var data = p.ReadLine()?.Split(' ');
-                (uint width, uint height, uint macroCount) =
-                    (uint.Parse(data?[0]!), uint.Parse(data[1]), uint.Parse(data[2]));
-                BoardList.Add(new BoardData()
+                if (data != null)
                 {
-                    Port = p,
-                    ButtonCols = width,
-                    ButtonRows = height,
-                    MacroCount = macroCount,
-                });
+                    var width = uint.Parse(data[0]);
+                    var height = uint.Parse(data[1]);
+                    var macroCount = uint.Parse(data[2]);
+                    boardList.Add(new BoardData()
+                    {
+                        Port = p,
+                        ButtonCols = width,
+                        ButtonRows = height,
+                        MacroCount = macroCount,
+                    });
+                }
+                Console.WriteLine(Resources.BoardRepository_lookup_found, boardList.Last());
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // ignored
+                Console.WriteLine(Resources.BoardRepository_lookup_invalid_port, p.PortName, e.GetType(), e.Message);
             }
-
-            p.Close();
+            finally
+            {
+                Console.WriteLine(Resources.BoardRepository_finish_lookup);
+                p.Close();
+            }
         }
+        Boards.Clear();
+        Boards.AddRange(boardList);
+        
     }
 }

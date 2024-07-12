@@ -10,7 +10,7 @@ public interface IBoardProgrammerService
 
     public void ResetKeybindings();
 
-    public void ProgramMacro(KeyBinding macro);
+    public void UploadMacro(KeyBinding macro);
 
     public List<KeyBinding> GetMacrosFromBoard();
 }
