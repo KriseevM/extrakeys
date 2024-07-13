@@ -19,6 +19,6 @@
             </ComboBox>
             <Button Content="{x:Static lang:Resources.MainWindow_board_list_refresh}" Click="RefreshButton_Click"></Button>
         </StackPanel>
-        <Button Margin="8" Content="{x:Static lang:Resources.MainWindow_start}" Click="StartButton_Click"></Button>
+        <Button Margin="8" IsEnabled="{Binding StartAvailable}" Content="{x:Static lang:Resources.MainWindow_start}" Click="StartButton_Click"></Button>
     </StackPanel>
 </Window>

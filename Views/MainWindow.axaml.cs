@@ -18,6 +18,8 @@ public partial class MainWindow : Window
 
     private void StartButton_Click(object? sender, RoutedEventArgs e)
     {
-        // TODO: Start second window
+        var programmerWindow = new ProgrammerWindow();
+        programmerWindow.Show();
+        Close();
     }
 }

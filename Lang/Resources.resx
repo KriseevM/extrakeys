@@ -40,4 +40,12 @@
     <data name="MainWindow_start" xml:space="preserve">
         <value>Start</value>
     </data>
+    <data name="BoardProgrammingService_button_out_of_range" xml:space="preserve">
+        <value>This board only supports {0} buttons</value>
+    </data>
+    <data name="ProgrammerWindow_board_info" xml:space="preserve">
+        <value>Board: {0}
+Buttons: {1}x{2}
+Keys per button: {3}</value>
+    </data>
 </root>

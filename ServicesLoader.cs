@@ -11,5 +11,6 @@ public static class ServiceCollectionExtensions {
         collection.AddSingleton<IBoardProgrammerService, BoardProgrammingServiceImpl>();
         // ViewModels:
         collection.AddTransient<MainWindowViewModel>();
+        collection.AddTransient<ProgrammerWindowViewModel>();
     }
 }

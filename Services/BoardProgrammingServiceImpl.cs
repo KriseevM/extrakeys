@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using extrakeys.Lang;
 using extrakeys.Models;
 using extrakeys.Services.Interfaces;
 
@@ -9,8 +10,10 @@ namespace extrakeys.Services;
 public class BoardProgrammingServiceImpl : IBoardProgrammerService
 {
     private readonly object _boardLock = new();
-    private BoardData? _board;
+    private  BoardData? _board;
 
+    public event EventHandler? BoardChanged;
+    
     public BoardData? Board
     {
         get => _board;
@@ -20,6 +23,7 @@ public class BoardProgrammingServiceImpl : IBoardProgrammerService
             {
                 _board = value;
             }
+            BoardChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -56,14 +60,13 @@ public class BoardProgrammingServiceImpl : IBoardProgrammerService
             if (_board.MacroCount < macro.KeyCodes.Length)
             {
                 throw new InvalidOperationException(
-                    $"This board only supports up to {_board.MacroCount} keys per button. " +
-                    $"{macro.KeyCodes.Length} is too many");
+                    $"This board only supports up to {_board.MacroCount} keys per button. {macro.KeyCodes.Length} is too many");
             }
 
             if (macro.KeyNumber >= _board.ButtonCols * _board.ButtonRows)
             {
                 throw new ArgumentOutOfRangeException(nameof(macro.KeyNumber), macro.KeyNumber,
-                    $"This board only supports {_board.ButtonCols * _board.ButtonRows} buttons");
+                    string.Format(Resources.BoardProgrammingService_button_out_of_range, _board.ButtonCols * _board.ButtonRows));
             }
 
             try
@@ -132,4 +135,5 @@ public class BoardProgrammingServiceImpl : IBoardProgrammerService
             }
         }
     }
+
 }

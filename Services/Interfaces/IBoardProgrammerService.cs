@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using extrakeys.Models;
@@ -13,4 +14,5 @@ public interface IBoardProgrammerService
     public void UploadMacro(KeyBinding macro);
 
     public List<KeyBinding> GetMacrosFromBoard();
+    public event EventHandler BoardChanged;
 }

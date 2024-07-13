@@ -27,4 +27,9 @@
     <data name="MainWindow_start" xml:space="preserve">
         <value>Начать</value>
     </data>
+    <data name="ProgrammerWindow_board_info" xml:space="preserve">
+        <value>Плата: {0}
+Кнопки: {1}x{2}
+Максимум клавиш на кнопку: {3}</value>
+    </data>
 </root>

@@ -86,5 +86,17 @@ namespace extrakeys.Lang {
                 return ResourceManager.GetString("MainWindow_start", resourceCulture);
             }
         }
+        
+        public static string BoardProgrammingService_button_out_of_range {
+            get {
+                return ResourceManager.GetString("BoardProgrammingService_button_out_of_range", resourceCulture);
+            }
+        }
+        
+        public static string ProgrammerWindow_board_info {
+            get {
+                return ResourceManager.GetString("ProgrammerWindow_board_info", resourceCulture);
+            }
+        }
     }
 }
