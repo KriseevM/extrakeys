@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using extrakeys.Models;
 using ReactiveUI;
@@ -19,15 +18,15 @@ public class NewKeybindWindowViewModel : ViewModelBase
             _selectedFilteredIndex = value;
             if (value != -1)
             {
-                this.SelectedKeyCode = Models.KeyCodeData.PreDefinedKeyCodes.First(p => p.DisplayName == FilteredKeyNames[value]);
+                this.SelectedKeyCode = KeyCodeData.PreDefinedKeyCodes.First(p => p.DisplayName == FilteredKeyNames[value]);
             }
         }
     }
 
-    public KeyCodeData? SelectedKeyCode { get; set; }
-    public bool Success { get; set; } = false;
+    public KeyCodeData? SelectedKeyCode { get; private set; }
+    public bool Success { get; set; }
 
-    public List<string> KeyNames => Models.KeyCodeData.PreDefinedKeyCodes.ConvertAll(p => p.DisplayName);
+    private static List<string> KeyNames => KeyCodeData.PreDefinedKeyCodes.ConvertAll(p => p.DisplayName);
     public List<string> FilteredKeyNames => KeyNames.Where(p => p.Contains(_filterText, System.StringComparison.InvariantCultureIgnoreCase)).ToList();
 
     public string FilterText

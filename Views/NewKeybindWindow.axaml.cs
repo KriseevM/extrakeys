@@ -1,7 +1,5 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using extrakeys.Utility;
 using extrakeys.ViewModels;
 
@@ -12,12 +10,12 @@ public partial class NewKeybindWindow : Window
     public NewKeybindWindow()
     {
         InitializeComponent();
-        this.DataContext = this.CreateInstance<NewKeybindWindowViewModel>();
+        DataContext = this.CreateInstance<NewKeybindWindowViewModel>();
     }
 
     private void Accept(object? sender, RoutedEventArgs e)
     {
-        var vm = ((NewKeybindWindowViewModel?)this.DataContext);
+        var vm = ((NewKeybindWindowViewModel?)DataContext);
         if(vm != null) vm.Success = true;
         Close();
     }

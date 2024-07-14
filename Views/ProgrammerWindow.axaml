@@ -10,12 +10,7 @@
         x:DataType="viewModels:ProgrammerWindowViewModel"
         Width="350" Height="400"
         Title="ProgrammerWindow">
-    <Grid Margin="16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Grid Margin="16" RowDefinitions="Auto,*,Auto">
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Content="{Binding BoardInfoText}"></Label>
         </StackPanel>
@@ -23,12 +18,7 @@
             <ItemsRepeater ItemsSource="{Binding  LoadedKeybindings}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="28" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                        <Grid ColumnDefinitions="28,*,Auto">
                             <Label Grid.Column="0" Width="20" Content="{Binding KeyNumber}" VerticalAlignment="Center" />
                             <ScrollViewer Grid.Column="1">
                                 <StackPanel Orientation="Horizontal">
@@ -38,14 +28,14 @@
                                         </ItemsRepeater.Layout>
                                         <ItemsRepeater.ItemTemplate>
                                             <DataTemplate x:DataType="models:KeyCodeData">
-                                                <Button Content="{Binding DisplayName}" Height="28" Click="RemoveKeybindHandler" Tag="{Binding }" />
+                                                <Button Content="{Binding DisplayName}" Click="RemoveKeybindHandler" Tag="{Binding }" />
                                             </DataTemplate>
                                         </ItemsRepeater.ItemTemplate>
                                     </ItemsRepeater>
-                                    <Button Content="+" Height="28" Click="AddKeybinding"/>
+                                    <Button Content="+" Click="AddKeybinding"/>
                                 </StackPanel>
                             </ScrollViewer>
-                            <Button Grid.Column="2" Content="x" Height="28" Click="CleanKeybinding" Margin="8 0" IsVisible="{Binding IsNotEmpty }"/>
+                            <Button Grid.Column="2" Content="x" Click="CleanKeybinding" Margin="8 0" IsVisible="{Binding IsNotEmpty }"/>
                         </Grid>
                     </DataTemplate>
 

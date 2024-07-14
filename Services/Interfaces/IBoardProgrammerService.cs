@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO.Ports;
 using extrakeys.Models;
 
 namespace extrakeys.Services.Interfaces;

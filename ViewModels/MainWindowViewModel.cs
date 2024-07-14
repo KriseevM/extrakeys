@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
-using extrakeys.Models;
 using extrakeys.Services.Interfaces;
 using ReactiveUI;
 
@@ -14,13 +10,13 @@ public class MainWindowViewModel : ViewModelBase
     private readonly IBoardRepository _repository;
     private readonly IBoardProgrammerService _programmer;
     private int _selectedComPort = -1;
-    private bool _startAvailable = false;
+    private bool _startAvailable;
 
     public MainWindowViewModel(IBoardRepository repository, IBoardProgrammerService programmer)
     {
         _repository = repository;
         _programmer = programmer;
-        _repository.Boards.CollectionChanged += (sender, args) => this.RaisePropertyChanged(nameof(BoardNames));
+        _repository.Boards.CollectionChanged += (_, _) => this.RaisePropertyChanged(nameof(BoardNames));
     }
 
     public List<string> BoardNames => _repository.Boards.ToList().ConvertAll(p => p.ToString());

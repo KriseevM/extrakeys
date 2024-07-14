@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using DynamicData;
 using extrakeys.Models;
@@ -16,7 +15,7 @@ public class ProgrammerWindowViewModel : ViewModelBase
         _programmer = programmer;
         LoadedKeybindings = new ObservableCollection<KeyBinding>();
         LoadedKeybindings.AddRange(_programmer.GetMacrosFromBoard());
-        _programmer.BoardChanged += (sender, args) =>
+        _programmer.BoardChanged += (_, _) =>
         {
             this.RaisePropertyChanged(nameof(BoardInfoText));
             ReloadKeybinds();
