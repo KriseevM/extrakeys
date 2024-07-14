@@ -50,13 +50,13 @@ public partial class ProgrammerWindow : Window
         await window.ShowDialog(this);
         var windowViewModel = ((NewKeybindWindowViewModel?)window.DataContext);
         if (windowViewModel == null) return;
-        if(windowViewModel.SelectedIndex == -1) return;
+        if(windowViewModel.SelectedKeyCode == null) return;
         if (windowViewModel.Success != true) return;
         var button = (Button?)sender;
         if (button?.DataContext is not KeyBinding buttonDataContext) return;
         var buttonIndex = buttonDataContext.KeyNumber;
         ((ProgrammerWindowViewModel?)DataContext)?.AddKeyToKeyBinding(buttonIndex,
-            KeyCodeData.PreDefinedKeyCodes[windowViewModel.SelectedIndex]);
+            windowViewModel.SelectedKeyCode);
     }
 
     private void UploadKeybindings(object? sender, RoutedEventArgs e)

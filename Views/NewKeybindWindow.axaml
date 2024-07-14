@@ -5,23 +5,19 @@
         xmlns:model="clr-namespace:extrakeys.Models"
         xmlns:lang="clr-namespace:extrakeys.Lang"
         xmlns:viewModels="clr-namespace:extrakeys.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="150"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="350"
         x:Class="extrakeys.Views.NewKeybindWindow"
         x:DataType="viewModels:NewKeybindWindowViewModel"
-        Width="300" Height="150"
+        Width="400" Height="350"
         Title="NewKeybindWindow">
-    <Grid Margin="16">
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <Label Content="{x:Static lang:Resources.NewKeyBinding_dropdown_label}" />
-            <ComboBox ItemsSource="{Binding KeyNames}"
-                      PlaceholderText="{x:Static lang:Resources.NewKeyBinding_dropdown_placeholder}"
-                      SelectedIndex="{Binding SelectedIndex}" />
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+    <Grid Margin="16" RowDefinitions="Auto,Auto,*,Auto">
+        <Label Grid.Row="0" Margin="0 0 0 8">
+            <TextBlock Text="{x:Static lang:Resources.NewKeyBinding_dropdown_label}" TextWrapping="Wrap" />
+        </Label>
+        <TextBox Grid.Row="1" Text="{Binding FilterText, Mode=TwoWay}" />
+        <ListBox Grid.Row="2" Margin="0 8 0 8" ItemsSource="{Binding FilteredKeyNames}"
+                 SelectedIndex="{Binding SelectedFilteredIndex}" />
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Button Content="{x:Static lang:Resources.Button_cancel}" Click="Cancel" />
             <Button Content="{x:Static lang:Resources.Button_ok}" Click="Accept" />
         </StackPanel>
