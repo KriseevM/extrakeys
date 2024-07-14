@@ -3,19 +3,59 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:extrakeys.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:models="clr-namespace:extrakeys.Models"
+        xmlns:lang="clr-namespace:extrakeys.Lang"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="400"
         x:Class="extrakeys.Views.ProgrammerWindow"
         x:DataType="viewModels:ProgrammerWindowViewModel"
+        Width="350" Height="400"
         Title="ProgrammerWindow">
-        <Grid Margin="16">
-                <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Label Content="{Binding BoardInfoText}"></Label>
-                </StackPanel>
-                <ListBox Grid.Row="1"></ListBox>
-        </Grid>
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Label Content="{Binding BoardInfoText}"></Label>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <ItemsRepeater ItemsSource="{Binding  LoadedKeybindings}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="28" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Width="20" Content="{Binding KeyNumber}" VerticalAlignment="Center" />
+                            <ScrollViewer Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <ItemsRepeater ItemsSource="{Binding KeyCodes}">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Horizontal"></StackLayout>
+                                        </ItemsRepeater.Layout>
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="models:KeyCodeData">
+                                                <Button Content="{Binding DisplayName}" Height="28" Click="RemoveKeybindHandler" Tag="{Binding }" />
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+                                    <Button Content="+" Height="28" Click="AddKeybinding"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                            <Button Grid.Column="2" Content="x" Height="28" Click="CleanKeybinding" Margin="8 0" IsVisible="{Binding IsNotEmpty }"/>
+                        </Grid>
+                    </DataTemplate>
+
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0 8">
+            <Button Content="{x:Static lang:Resources.ProgrammerWindow_upload}" Click="UploadKeybindings"/>
+            <Button Content="{x:Static lang:Resources.ProgrammerWindow_reset}" Click="RestoreKeybindings"/>
+            <Button Content="{x:Static lang:Resources.ProgrammerWindow_clear}" Click="ClearKeybindings"/>
+        </StackPanel>
+    </Grid>
 </Window>

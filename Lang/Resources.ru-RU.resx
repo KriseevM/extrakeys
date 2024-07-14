@@ -32,4 +32,22 @@
 Кнопки: {1}x{2}
 Максимум клавиш на кнопку: {3}</value>
     </data>
+    <data name="ProgrammerWindow_upload" xml:space="preserve">
+        <value>Сохранить</value>
+    </data>
+    <data name="ProgrammerWindow_clear" xml:space="preserve">
+        <value>Очистить</value>
+    </data>
+    <data name="ProgrammerWindow_reset" xml:space="preserve">
+        <value>Восстановить</value>
+    </data>
+    <data name="Button_cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="NewKeyBinding_dropdown_placeholder" xml:space="preserve">
+        <value>Выберите клавишу</value>
+    </data>
+    <data name="NewKeyBinding_dropdown_label" xml:space="preserve">
+        <value>Выберите клавишу, которую хотите добавить:</value>
+    </data>
 </root>

@@ -48,4 +48,25 @@
 Buttons: {1}x{2}
 Keys per button: {3}</value>
     </data>
+    <data name="ProgrammerWindow_upload" xml:space="preserve">
+        <value>Save macros</value>
+    </data>
+    <data name="ProgrammerWindow_reset" xml:space="preserve">
+        <value>Restore</value>
+    </data>
+    <data name="ProgrammerWindow_clear" xml:space="preserve">
+        <value>Clear</value>
+    </data>
+    <data name="Button_ok" xml:space="preserve">
+        <value>OK</value>
+    </data>
+    <data name="Button_cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="NewKeyBinding_dropdown_placeholder" xml:space="preserve">
+        <value>Select a key</value>
+    </data>
+    <data name="NewKeyBinding_dropdown_label" xml:space="preserve">
+        <value>Please, choose a key you want to add:</value>
+    </data>
 </root>

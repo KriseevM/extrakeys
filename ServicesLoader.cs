@@ -12,5 +12,6 @@ public static class ServiceCollectionExtensions {
         // ViewModels:
         collection.AddTransient<MainWindowViewModel>();
         collection.AddTransient<ProgrammerWindowViewModel>();
+        collection.AddTransient<NewKeybindWindowViewModel>();
     }
 }

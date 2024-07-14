@@ -19,10 +19,15 @@ public class ProgrammerWindowViewModel : ViewModelBase
         _programmer.BoardChanged += (sender, args) =>
         {
             this.RaisePropertyChanged(nameof(BoardInfoText));
-            LoadedKeybindings.Clear();
-            LoadedKeybindings.AddRange(_programmer.GetMacrosFromBoard());
-            this.RaisePropertyChanged(nameof(LoadedKeybindings));
+            ReloadKeybinds();
         };
+    }
+
+    public void ReloadKeybinds()
+    {
+        LoadedKeybindings.Clear();
+        LoadedKeybindings.AddRange(_programmer.GetMacrosFromBoard());
+        this.RaisePropertyChanged(nameof(LoadedKeybindings));
     }
 
     public string BoardInfoText =>
@@ -58,8 +63,31 @@ public class ProgrammerWindowViewModel : ViewModelBase
         LoadedKeybindings.Insert(buttonIndex, keybind.RemoveKey(keyCodeIndex));
     }
 
-    public void ResetKeybinds()
+    public void ResetKeybindings()
     {
-        _programmer.ResetKeybindings();
+        for (int i = 0; i < LoadedKeybindings.Count; i++)
+        {
+            var keybind = LoadedKeybindings[i];
+            LoadedKeybindings.RemoveAt(i);
+            LoadedKeybindings.Insert(i, keybind.Clean());
+        }
+    }
+
+    public void CleanKeybinding(int buttonIndex)
+    {
+        if (buttonIndex < 0 || buttonIndex >= LoadedKeybindings.Count)
+            return;
+        var keybind = LoadedKeybindings[buttonIndex];
+        LoadedKeybindings.RemoveAt(buttonIndex);
+        LoadedKeybindings.Insert(buttonIndex, keybind.Clean());
+    }
+
+    public void UploadKeybindings()
+    {
+        foreach (var keybind in LoadedKeybindings)
+        {
+            _programmer.UploadMacro(keybind);
+        }
+        ReloadKeybinds();
     }
 }

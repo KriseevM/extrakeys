@@ -111,14 +111,13 @@ public class BoardProgrammingServiceImpl : IBoardProgrammerService
                     for (var j = 0; j < _board.MacroCount; ++j)
                     {
                         var val = _board.Port.ReadByte();
-                        if (val == 0)
+                        if (val != 0)
                         {
-                            break;
+                            macro.Add(KeyCodeData.PreDefinedKeyCodes.FirstOrDefault(p => p.KeyCode == val,
+                                new KeyCodeData() { DisplayName = $"{val}", KeyCode = (byte)val }));
                         }
-
-                        macro.Add(KeyCodeData.PreDefinedKeyCodes.FirstOrDefault(p => p.KeyCode == val,
-                            new KeyCodeData() { DisplayName = $"{val}", KeyCode = (byte)val }));
                     }
+                    _board.Port.ReadLine(); // discard CRLF
 
                     keybinds.Add(new KeyBinding()
                     {
@@ -135,5 +134,6 @@ public class BoardProgrammingServiceImpl : IBoardProgrammerService
             }
         }
     }
+    
 
 }
