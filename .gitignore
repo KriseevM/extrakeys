@@ -1,3 +1,7 @@
 .idea
 bin
 obj
+
+sketch.yaml
+
+.vscode
